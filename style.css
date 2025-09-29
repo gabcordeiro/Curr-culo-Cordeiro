@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vira-Latas - Adote um Amigo</title>
+    <style>
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #1d1d1f;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Efeito Liquid Glass - baseado no artigo */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+                        inset 0 4px 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adicionando efeito de destaque brilhante */
+        .glass-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+
+        /* Efeito de destaque adicional para bordas */
+        .glass-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px);
+            box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 0.7);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #8E8E93;
+            margin-bottom: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .hero-text {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #8E8E93;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+        }
+
+        .hero-image {
+            flex: 1;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Seção de Galeria */
+        .gallery {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Seção de Informações */
+        .info {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            padding: 2rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1d1d1f;
+        }
+
+        .info-card p {
+            color: #8E8E93;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card ul {
+            list-style-type: none;
+        }
+
+        .info-card li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-card li:before {
+            content: "•";
+            color: #007AFF;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 1rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-text {
+            color: #8E8E93;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            color: #007AFF;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .copyright {
+            color: #8E8E93;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Vira-Latas</div>
+        <p class="tagline">Encontre seu melhor amigo de quatro patas</p>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text glass-effect">
+                <h1 class="hero-title">Adote um Vira-Lata</h1>
+                <p class="hero-subtitle">Dê um lar para um amigo fiel e descubra a alegria de ter um companheiro de quatro patas. Vira-latas são cheios de personalidade, amor e gratidão.</p>
+                <a href="#gallery" class="cta-button">Conheça nossos amigos</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://virapet.ong.br/wp-content/uploads/2025/05/cachorro-vira-lata.webp" alt="Cachorro vira-lata feliz">
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Nossos Amigos à Espera de um Lar</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://caesegatos.com.br/wp-content/uploads/Animais-GAVAA-2.jpeg" alt="Cachorro vira-lata caramelo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Serena_REFON.jpg" alt="Cachorra vira-lata Serena">
+            </div>
+            <div class="gallery-item">
+                <img src="https://caesegatos.com.br/wp-content/uploads/Vira-lata-caramelo.jpg" alt="Vira-lata caramelo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://virapet.ong.br/wp-content/uploads/2025/05/cachorro-vira-lata.webp" alt="Cachorro vira-lata feliz">
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+        <h2 class="section-title">Por Que Adotar um Vira-Lata?</h2>
+        <div class="info-cards">
+            <div class="info-card glass-effect">
+                <h3>Vantagens</h3>
+                <p>Os vira-latas têm características únicas que os tornam companheiros especiais:</p>
+                <ul>
+                    <li>Saúde mais resistente</li>
+                    <li>Personalidade marcante</li>
+                    <li>Adaptabilidade</li>
+                    <li>Gratidão incondicional</li>
+                </ul>
+            </div>
+            <div class="info-card glass-effect">
+                <h3>Cuidados</h3>
+                <p>Para garantir uma vida saudável e feliz ao seu novo amigo:</p>
+                <ul>
+                    <li>Alimentação de qualidade</li>
+                    <li>Visitas regulares ao veterinário</li>
+                    <li>Exercícios e passeios diários</li>
+                    <li>Muito amor e carinho</li>
+                </ul>
+            </div>
+            <div class="info-card glass-effect">
+                <h3>Processo de Adoção</h3>
+                <p>Como adotar um vira-lata:</p>
+                <ul>
+                    <li>Escolha seu novo amigo</li>
+                    <li>Preencha o formulário</li>
+                    <li>Avaliação e entrevista</li>
+                    <li>Bem-vindo ao novo lar!</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Vira-Latas</div>
+            <p class="footer-text">Conectando corações humanos e caninos desde 2023</p>
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">🐦</a>
+            </div>
+            <p class="copyright">© 2023 Vira-Latas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
