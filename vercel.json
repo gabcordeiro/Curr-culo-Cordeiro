@@ -1,14 +1,14 @@
 {
   "builds": [
     {
-      "src": "index.html",
+      "src": "curriculo.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/curriculo.html"
     }
   ]
 }
