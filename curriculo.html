@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Cordeiro - Desenvolvedor</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: rgba(0, 122, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: rgba(31, 38, 135, 0.2);
+            --text-primary: #1d1d1f;
+            --text-secondary: #424245;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Liquid Glass Effect */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                0 8px 32px var(--glass-shadow),
+                inset 0 4px 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+        }
+
+        /* Layout */
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .resume-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .skill-category h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .content-section {
+            padding: 1.5rem;
+        }
+
+        /* Experience and Projects */
+        .experience-item, .project-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-item:last-child, .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .company, .tech-stack {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .duration {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .link {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: opacity 0.3s;
+        }
+
+        .link:hover {
+            opacity: 0.8;
+        }
+
+        /* Education and Certifications */
+        .education-item, .certification-item {
+            margin-bottom: 1rem;
+        }
+
+        .education-item:last-child, .certification-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Typography and Details */
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header glass-effect">
+            <h1 class="name">G A B R I E L<br>C O R D E I R O<br>D E C A R V A L H O</h1>
+            <p class="title">D E S E N V O L V E D O R</p>
+        </header>
+
+        <div class="resume-grid">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Personal Information -->
+                <section class="info-section glass-effect">
+                    <h3 class="section-title">📝 INFORMAÇÕES PESSOAIS</h3>
+                    <ul class="contact-list">
+                        <li>📍 Vila Velha, ES</li>
+                        <li>📞 +55 (27) 99312-2222</li>
+                        <li>✉️ gcordeirocarvalho97@gmail.com</li>
+                        <li>⚧️ Masculino</li>
+                        <li>🎂 02/01/1997</li>
+                        <li>💍 Solteiro</li>
+                        <li>🇧🇷 Brasileiro</li>
+                    </ul>
+                </section>
+
+                <!-- Skills -->
+                <section class="info-section glass-effect">
+                    <h3 class="section-title">🚀 HABILIDADES</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Linguagens de Programação</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">C#</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">PHP</span>
+                                <span class="skill-tag">ABAP</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Frameworks</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">.NET</span>
+                                <span class="skill-tag">ASP.NET</span>
+                                <span class="skill-tag">React Native</span>
+                                <span class="skill-tag">Angular</span>
+                                <span class="skill-tag">Unity3D</span>
+                                <span class="skill-tag">Flutter</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Tecnologias</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">SAP S/4HANA</span>
+                                <span class="skill-tag">Tailwind CSS</span>
+                                <span class="skill-tag">Redes Neurais</span>
+                                <span class="skill-tag">YOLO v9</span>
+                                <span class="skill-tag">FlutterFlow</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Banco de Dados</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Firebase</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">Supabase</span>
+                                <span class="skill-tag">SQL ANSI</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Links -->
+                <section class="info-section glass-effect">
+                    <h3 class="section-title">🔗 LINKS</h3>
+                    <div class="links">
+                        <a href="https://linkedin.com/in/gabriel-cordeiro-a2a1351bb" class="link" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/gabcordeiro" class="link" target="_blank">GitHub</a>
+                    </div>
+                </section>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Summary -->
+                <section class="content-section glass-effect">
+                    <h3>💼 RESUMO</h3>
+                    <p>Desenvolvedor com foco em Realidade Virtual, Mobile, Web e Jogos. Atua criando experiências interativas e soluções acessíveis, combinando tecnologia e criatividade.</p>
+                </section>
+
+                <!-- Experience -->
+                <section class="content-section glass-effect">
+                    <h3>💻 EXPERIÊNCIA</h3>
+                    <div class="experience-item">
+                        <div class="job-title">Desenvolvedor de Realidade Virtual</div>
+                        <div class="company">VALE - UVV</div>
+                        <div class="duration">2021 — Atualmente</div>
+                        <p>Desenvolvimento de aplicações de treinamentos para atividades perigosas utilizando Realidade Virtual.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="job-title">Desenvolvedor de Flutter</div>
+                        <div class="company">Jade Autistic</div>
+                        <div class="duration">01/24 — 08/24</div>
+                        <p>Desenvolvimento de jogos com Flutter, focados na melhora da experiência e acessibilidade para crianças autistas.</p>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section class="content-section glass-effect">
+                    <h3>📂 PROJETOS</h3>
+                    <div class="project-item">
+                        <div class="job-title">Bbox</div>
+                        <div class="tech-stack">Tecnologias: Flutterflow, Firebase</div>
+                        <p>Site desenvolvido com FlutterFlow e Firebase, incluindo chamada de API, sistema de autenticação e dashboard de estatísticas.</p>
+                        <a href="https://blackboxsport.flutterflow.app/" class="link" target="_blank">Ver Projeto</a>
+                    </div>
+                    <div class="project-item">
+                        <div class="job-title">Agenda Pessoal</div>
+                        <div class="tech-stack">Tecnologias: Flask, Python, Nginx</div>
+                        <p>Site de agenda desenvolvido com Flask e hospedado em domínio próprio.</p>
+                        <a href="https://app.kord.com.br/" class="link" target="_blank">Ver Projeto</a>
+                    </div>
+                    <div class="project-item">
+                        <div class="job-title">Organizador Pessoal</div>
+                        <div class="tech-stack">Tecnologias: Flask, Python</div>
+                        <p>Sistema de CRUD pessoal feito com python usado para organizar dados das músicas.</p>
+                        <a href="https://perfil.kord.com.br/" class="link" target="_blank">Ver Projeto</a>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section class="content-section glass-effect">
+                    <h3>🎓 EDUCAÇÃO</h3>
+                    <div class="education-item">
+                        <div class="job-title">Ciência da Computação</div>
+                        <div class="company">Universidade Vila Velha (UVV)</div>
+                        <div class="duration">2019 — 2024</div>
+                        <p>Formação com foco em desenvolvimento de software, banco de dados e sistemas distribuídos.</p>
+                    </div>
+                </section>
+
+                <!-- Certifications -->
+                <section class="content-section glass-effect">
+                    <h3>🏆 CERTIFICADOS</h3>
+                    <div class="certification-item">
+                        <div class="job-title">React Native: Desenvolva APPs Nativas para Android e iOS</div>
+                        <a href="https://www.udemy.com/certificate/Ucfe6669fa-71df-42z3-a006-5ae0f4118b51/" class="link" target="_blank">Ver Certificado</a>
+                    </div>
+                    <div class="certification-item">
+                        <div class="job-title">Desenvolvimento de APIs em REST</div>
+                        <a href="https://cursos.timtec.com.br/certificate/2TdSxtNS" class="link" target="_blank">Ver Certificado</a>
+                    </div>
+                    <div class="certification-item">
+                        <div class="job-title">Desenvolvimento com Python</div>
+                        <a href="https://cursos.timtec.com.br/certificate/oYq-J6uN" class="link" target="_blank">Ver Certificado</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
