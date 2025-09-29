@@ -29,10 +29,12 @@ Desenvolvido com foco em HTML5 e CSS3, permite que recrutadores e visitantes vis
 
 ## 📂 Estrutura do Repositório
 
-/Curr-culo-Cordeiro
-├── README.md # Este arquivo
-├── curriculo.html # Arquivo principal do currículo
-└── style.css # Arquivo de estilos
+- /Curr-culo-Cordeiro
+- ├── README.md # Este arquivo
+- ├── curriculo.html # Arquivo principal do currículo
+- └── style.css # Arquivo de estilos
+
+---
 
 ## 💬 Contato
 
